@@ -17,6 +17,4 @@ public class CurrentUser extends User {
     public pl.coderslab.models.User getUser() {
         return user;
     }
-
-
 }
