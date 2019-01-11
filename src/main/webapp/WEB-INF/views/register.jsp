@@ -33,6 +33,14 @@
     <h2>Załóż konto</h2>
     <form:form method="post" modelAttribute="user">
         <div class="form-group">
+            <form:input type="text" path="firstname" placeholder="Imię" required="true"/>
+            <form:errors path="firstname" element="div"/>
+        </div>
+        <div class="form-group">
+            <form:input type="text" path="lastname" placeholder="Nazwisko" required="true"/>
+            <form:errors path="lastname" element="div"/>
+        </div>
+        <div class="form-group">
             <form:input type="email" path="email" placeholder="Email" required="true" />
             <form:errors path="email" element="div" />
             <c:if test="${emailOccupated}">
