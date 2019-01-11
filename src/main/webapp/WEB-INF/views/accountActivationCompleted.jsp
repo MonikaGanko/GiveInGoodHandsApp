@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Document</title>
-    <link rel="stylesheet" href="resources/css/style.css"/>
+    <link rel="stylesheet" href="/../resources/css/style.css"/>
 </head>
 <body>
 <header>
@@ -31,10 +31,9 @@
 
 <section class="login-page">
     <h2>Twoje konto jest już aktywne</h2>
-    <div class="form-group">Zaloguj się, aby z niego korzystać.</div>
-
+    <h3>Zaloguj się, aby z niego korzystać</h3>
     <div class="form-group form-group--buttons">
-        <a href="/login" class="btn btn--without-border">Zaloguj się</a>
+        <a href="/login" class="btn btn--with-border">Zaloguj się</a>
     </div>
 
 </section>
@@ -66,10 +65,10 @@
         <span class="bottom-line--copy">Copyright &copy; 2018</span>
         <div class="bottom-line--icons">
             <a href="#" class="btn btn--small"
-            ><img src="resources/images/icon-facebook.svg"
+            ><img src="/../resources/images/icon-facebook.svg"
             /></a>
             <a href="#" class="btn btn--small"
-            ><img src="resources/images/icon-instagram.svg"
+            ><img src="/../resources/images/icon-instagram.svg"
             /></a>
         </div>
     </div>
