@@ -16,6 +16,7 @@ import pl.coderslab.services.UserService;
 import javax.validation.Valid;
 import java.util.Currency;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/admin")
@@ -40,12 +41,40 @@ public class AdminController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@AuthenticationPrincipal CurrentUser currentUser, @PathVariable Long id) {
+    public String delete(@AuthenticationPrincipal CurrentUser currentUser, @PathVariable Long id, Model model) {
+        boolean isAdmin = false;
+        //boolean isUser = false;
         User entityUser = currentUser.getUser();
-        if (entityUser.getRoles().equals("ROLE_ADMIN")) {
-            userService.deleteUser(userService.findById(id));
+        Set<Role> userRoles = entityUser.getRoles();
+        Role adminRole = (Role) roleService.findByRole("ROLE_ADMIN");
+        //Role userRole = (Role) roleService.findByRole("ROLE_USER");
+         /*   if (entityUser.getRoles().equals(adminRole.getRole())) {
+                userService.deleteUser(userService.findById(id));
+                return "redirect:../adminsList";
+            }
+            return "/admin/dashboard";
+*/
+
+        for (Role r : userRoles) {
+            if (r.getRole().equals(adminRole.getRole())) {
+                isAdmin = true;
+                break;
+                // } else if (r.getRole().equals(userRole.getRole())) {
+                //     isUser = true;
+                //    break;
+            }
         }
-        return "redirect:../admin/adminsList";
+        if (isAdmin) {
+            userService.deleteUser(userService.findById(id));
+            model.addAttribute("entityUser", entityUser);
+            return "redirect:../adminsList";
+/*        } else if (isUser) {
+            return "user/dashboard";*/
+            //  }
+        } else {
+            return "403";
+        }
+
     }
 
     @GetMapping("/addAdmin")
@@ -72,6 +101,20 @@ public class AdminController {
             userService.saveUser(admin);
             return "redirect:/admin/adminsList";
         }
-
     }
+
+    @GetMapping("/adminIdCheck/{id}")
+    public String checkAdminId(@AuthenticationPrincipal CurrentUser currentUser, Model model, @PathVariable Long id) {
+        User entityUser = currentUser.getUser();
+        if (entityUser.getId() == id) {
+            Role adminRole = (Role) roleService.findByRole("ROLE_ADMIN");
+            List<User> admins = userService.findAllByRoles(adminRole);
+            model.addAttribute("admins", admins);
+            model.addAttribute("id", id);
+            return "admin/deleteOperationForbidden";
+        }
+        return "redirect: /../../delete/" + id;
+    }
+
+
 }
