@@ -74,7 +74,6 @@ public class AdminController {
         } else {
             return "403";
         }
-
     }
 
     @GetMapping("/addAdmin")
@@ -99,7 +98,10 @@ public class AdminController {
             return "admin/addAdmin";
         } else {
             userService.saveUser(admin);
-            return "redirect:/admin/adminsList";
+           /* Long newAdminId = admin.getId();
+            Long adminRoleId = roleService.findIdByRole("ROLE_ADMIN");
+            admin.setRoles();*/
+            return "redirect: /../adminsList";
         }
     }
 
@@ -115,6 +117,5 @@ public class AdminController {
         }
         return "redirect: /../../delete/" + id;
     }
-
 
 }
