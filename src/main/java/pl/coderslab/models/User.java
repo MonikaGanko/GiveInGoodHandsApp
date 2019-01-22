@@ -47,8 +47,13 @@ public class User {
 
     private boolean validated = true;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+   /* @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)*/
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+/*    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))*/
     private Set<Role> roles;
+
+    @OneToMany (mappedBy = "user", fetch = FetchType.EAGER)
+    Set <Donation> donations;
 }
