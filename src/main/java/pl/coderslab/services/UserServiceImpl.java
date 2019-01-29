@@ -44,6 +44,14 @@ public class UserServiceImpl implements UserService {
 }
 
     @Override
+    public void saveAdmin(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        Role userRole = roleRepository.findRoleByRole("ROLE_ADMIN");
+        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        userRepository.save(user);
+    }
+
+    @Override
     public void updateUser(User user) {
         userRepository.save(user);
     }
@@ -93,4 +101,15 @@ public class UserServiceImpl implements UserService {
     public List<User> findAllUsers() {
         return userRepository.findAll();
     }
+
+   /* @Override
+    public List<User> findAllByRole(Set<Role> roles) {
+        return userRepository.findAllByRole(roles);
+    }*/
+   @Override
+   public List<User> findAllByRoles(Role role) {
+       return userRepository.findAllByRoles(role);
+   }
+
+
 }
