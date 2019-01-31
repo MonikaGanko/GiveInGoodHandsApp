@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 
 @Service
 @Transactional
-public class RoleServiceImpl implements RoleService<Role> {
+public class RoleServiceImpl implements RoleService {
 
     @Autowired
     RoleRepository roleRepository;
@@ -18,4 +18,11 @@ public class RoleServiceImpl implements RoleService<Role> {
     public Role findByRole(String roleName) {
         return roleRepository.findRoleByRole(roleName);
     }
+
+    @Override
+    public Long findIdByRole(String roleName) {
+        return roleRepository.findIdByRole(roleName);
+    }
+
+
 }
